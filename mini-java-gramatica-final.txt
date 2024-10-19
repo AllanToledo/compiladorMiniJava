@@ -1,0 +1,27 @@
+PROG          -> public class id { <METODO> }
+METODO        -> public static <METODO_TIPO> id ( <PARAMS> )  { <CMDS> } <METODO> | λ
+METODO_TIPO   -> <TIPO> | void
+TIPO          -> double
+PARAMS        -> <TIPO> id<MAIS_PARAMS> | λ
+MAIS_PARAMS   -> , <PARAMS> | λ
+CMDS          -> <CMD>;<CMDS> | <CMD_COND><CMDS> | λ
+CMD_COND      -> if (  <CONDICAO> )  {<CMDS>} <PFALSA>
+                 | while (  <CONDICAO> )  {<CMDS>}
+CMD           -> id <RESTO_IDENT>
+                 | <TIPO> id <MAIS_VARS>
+                 | return <EXPRESSAO>
+MAIS_VARS     -> , id <MAIS_VARS>
+PFALSA        -> else { <CMDS> } | λ
+RESTO_IDENT   -> = <EXPRESSAO> | (<LISTA_ARG>)
+LISTA_ARG     -> <EXPRESSAO> <MAIS_ARGS> | λ
+MAIS_ARG      -> , <EXPRESSAO> <MAIS_ARGS> | λ
+CONDICAO      -> <EXPRESSAO> <RELACAO> <EXPRESSAO>
+RELACAO       -> == | != | >= | <= | > | <
+EXPRESSAO     -> <TERMO> <OUTROS_TERMOS>
+TERMO         -> <FATOR> <MAIS_FATORES>
+FATOR         -> id <CHAMADA> | numero_real | (<EXPRESSAO>) | - <FATOR>
+CHAMADA       -> (<LISTA_ARG>) | λ
+OUTROS_TERMOS -> <OP_AD> <TERMO> <OUTROS_TERMOS> | λ
+OP_AD         -> + | -
+MAIS_FATORES  -> <OP_MUL> <FATOR> <MAIS_FATORES> | λ
+OP_MUL        -> * | /
